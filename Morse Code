@@ -1,0 +1,267 @@
+import java.util.*;
+import java.awt.List;
+import java.io.*;
+public class MORESCODE {
+	Scanner sc;
+	int Userinput;
+	ArrayList<String> Code;
+	ArrayList<Character>Alphabet;
+	ArrayList<String> CodeSummary;
+	ArrayList<String> Summary2;
+	Iterator Codes;
+	Iterator Alphabets;
+	char AlphabetLibary[];
+	String CodeLibary[];
+	int Clines;
+	int CNumberWords;
+	int CAlphabets;
+	int CNumberSymbol;
+	int CNumbersNumber;
+	String SClines;
+	String SCNumberWords;
+	String SCAlphabets;
+	String SCNumberSymbol;
+	String SCNumbersNumber;
+	char CClines;
+	char CCNumberWords;
+	char CCAlphabets;
+	char CCNumberSymbol;
+	char CCNumbersNumber;
+	
+	public void MORESCODE() {
+		
+		
+		AlphabetLibary= new char[]{ 'A', 'B', 'C', 'D', 'E', 'F', 'G',
+				'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+				'U', 'V', 'W', 'X', 'Y', 'Z','1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+                ',', '.', '?','@','=','(',')',':',';','!','-','\"','\''};
+		
+		CodeLibary= new String[] { ".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", 
+                ".---", "-.-", ".-..", "--", "-.", "---", ".---.", "--.-", ".-.",
+                "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--..", ".----",
+                "..---", "...--", "....-", ".....", "-....", "--...", "---..", "----.",
+                "-----", "--..--", ".-.-.-", "..--..",".--.-.","-...-","-.--.","-.--.-","---...","-.-.-.","-.-.--","-....-",".-..-.",".----."};
+		
+		
+		//Array List
+				Alphabet=new ArrayList<Character>();
+				Code=new ArrayList<String>();
+				
+				for(int i=0;i<AlphabetLibary.length;i++) {
+						Alphabet.add(AlphabetLibary[i]);
+						Code.add(CodeLibary[i]);
+				}
+	 menu();
+	}
+	public void menu() {
+		
+		System.out.println("Menu:   \n 1. Send Morse Message \n 2. Receive Morse Message \n 3. Print Letters and Morse Code  \n 4. Exit  \r\n" + 
+				" \r\n" + 
+				"Input code: \r\n" + 
+				" ");
+		sc=new Scanner(System.in);
+		Userinput=sc.nextInt();
+		switch(Userinput) {
+		
+		//invoke different methods
+		case 1 :
+		SendMorse();
+		break;
+			
+		case 2 :
+		ReceiveMorse();
+		break;
+		
+		case 3 :
+		PrintLettersNMorse();
+		break;	
+		
+		case 4 :
+		Exit();
+		break;
+		
+		
+		
+		}
+	}
+	//Every message must starts with “VV” or “…- …-”  and ends with “EOM” or “. --- --” 
+	
+
+	
+	private void SendMorse() {
+	
+		//1. Number of lines in the message. 2. Number of words  3. Number of Alphabets 4. Number of Symbols 5. Number of numbers (Arabic numerals) 
+		CodeSummary=new ArrayList<String>();
+		sc=new Scanner(System.in);
+		int enter=0;
+		//counter
+		Clines=0;
+		CNumberWords=0;
+		CAlphabets=0;
+		CNumberSymbol=0;
+		CNumbersNumber=0;
+		String Verified=sc.next();
+		if(Verified.equals("VV"))
+		{
+			Clines++;
+			CodeSummary.add(CodeLibary[21]);
+			CodeSummary.add(CodeLibary[21]);
+			System.out.print("...- ...- ");
+			enter=1;
+			
+		while(enter>=1) {
+			if(enter>1) {
+			System.out.println();
+			Clines++;}
+			String User[]=sc.nextLine().split(" ");	
+			for(int Countwords=0;Countwords<User.length;Countwords++) {
+				CNumberWords++;}
+			if(User[0].equals("EOM")) {
+				System.out.print(CodeLibary[4]+" "+CodeLibary[14]+" "+CodeLibary[12]);
+				CodeSummary.add(CodeLibary[4]);
+				CodeSummary.add(CodeLibary[14]);
+				CodeSummary.add(CodeLibary[12]);
+				for(int counter=0;counter<=4;counter++) {
+				CAlphabets++;}
+				break;}
+		
+			for(int i=0;i<User.length;i++) {
+				String A=User[i];
+				if(i>0) {
+				System.out.print(" ");}
+				for(int j=0;j<A.length();j++) {
+					char[]a=A.toCharArray();
+					if(a[j]=='A'||a[j]=='B'||a[j]=='C'||a[j]=='D'||a[j]=='E'||a[j]=='F'||a[j]=='G'||a[j]==
+							'H'||a[j]== 'I'||a[j]=='J'||a[j]=='K'||a[j]=='L'||a[j]=='M'||a[j]=='N'||a[j]=='O'||a[j]=='P'||a[j]=='Q'||a[j]=='R'||a[j]=='S'||a[j]== 'T'||a[j]==
+							'U'||a[j]== 'V'||a[j]== 'W'||a[j]== 'X'||a[j]=='Y'||a[j]=='Z') {
+						CAlphabets++;
+					}else if(a[j]=='1'||a[j]=='2'||a[j]=='3'||a[j]=='4'||a[j]=='5'||a[j]=='6'||a[j]=='7'||a[j]=='8'||a[j]==
+							'9'||a[j]== '0'){CNumbersNumber++;
+							CAlphabets++;
+						
+					}
+					else {CNumberSymbol++;}
+					
+
+					//declaring Iterator
+					Iterator<Character>Alphabets=Alphabet.iterator();
+					Iterator<String>Codes=Code.iterator();
+					
+					while(Alphabets.hasNext()) {
+						Character Ac=Alphabets.next();
+						String Co=Codes.next();
+						if(Ac==a[j]) {
+							CodeSummary.add(Co);
+							System.out.print(Co+" ");
+							
+						}}
+					}
+					
+					}
+					
+			enter++;}
+			}	
+		
+			
+		
+		SClines=Integer.toString(Clines);
+		SCNumberWords=Integer.toString(CNumberWords);
+		SCAlphabets=Integer.toString(CAlphabets);
+		SCNumberSymbol=Integer.toString(CNumberSymbol);
+		SCNumbersNumber=Integer.toString(CNumbersNumber);
+		
+		CClines=SClines.charAt(0);
+		CCNumberWords=SCNumberWords.charAt(0);
+		CCAlphabets=SCAlphabets.charAt(0);
+		CCNumberSymbol=SCNumberSymbol.charAt(0);
+		CCNumbersNumber=SCNumbersNumber.charAt(0);
+		
+		char []C=new char[5];
+		C[0]=CClines;
+		C[1]=CCNumberWords;
+		C[2]=CCAlphabets;		
+		C[3]=CCNumberSymbol;		
+		C[4]=CCNumbersNumber;
+		String[]CS=new String[5];
+		
+		
+		for(int c=0;c<AlphabetLibary.length;c++) {
+			for(int k=0;k<=4;k++) {
+			if(AlphabetLibary[c]==C[k]) {
+				CS[k]=CodeLibary[c];
+			}
+			}
+			
+		}
+		System.out.print("\n"+CS[0]+"\n"+CS[1]+"\n"+CS[2]+"\n"+CS[3]+"\n"+CS[4]);
+		System.out.println();
+		
+		menu();
+
+		
+	}
+	
+	//Every message must starts with “VV” or “…- …-”  and ends with “EOM” or “. --- --” 
+	private void ReceiveMorse() {
+		sc=new Scanner(System.in);
+		CodeSummary=new ArrayList<String>();
+		boolean enter=true;
+		String Verified=sc.next();
+		//if(Verified.equals("…- …-"))
+		//{
+			CodeSummary.add(CodeLibary[21]);
+			CodeSummary.add(CodeLibary[21]);
+			
+		System.out.print("VV");
+		
+		while(enter) {
+			System.out.println();
+			String User[]=sc.nextLine().split(" ");	
+			
+			if(User[0].equals(".")&& User[1].equals("---")&& User[2].equals("--")){
+				
+				CodeSummary.add(CodeLibary[4]);
+				CodeSummary.add(CodeLibary[14]);
+				CodeSummary.add(CodeLibary[12]);
+				enter=false;
+				break;}
+		
+			for(int i=0;i<User.length;i++) {
+				String A=User[i];
+				
+				for(int k=0;k<CodeLibary.length;k++) {
+					if(CodeLibary[k].equals(A)) {
+						CodeSummary.add(CodeLibary[k]);
+						
+					}
+					
+				}
+			
+			
+			}}//}
+		
+	}
+	private void PrintLettersNMorse() {
+		
+		String[]Libary= {"5 .....","H ....","4 ....-","S ...","V ...-","3 ...--","I ..","F ..-.","U ..-","? ..--..","2 ..---","E .","L .-..","\".-..-.","R .-.",". .-.-.-","A.-","P.--.","@ .--.-.","W .--","J .---","' .----.","1 .----","6 -....","- -....-"
+				,"B -...","= -...-","D -..", "X -..-","N -.","C -.-.","; -.-.-.","! -.-.--","K -.-", "( -.--.", ") -.--.-","Y -.--","T -","7 --...","Z --.."," --..--","G --.","Q --.-","M --",": ---..." ,"8 ---..","O --- ","9 ----.","0 -----"};  
+		for(int i=0;i<Libary.length;i++) {
+			System.out.print(Libary[i]+"       \t");
+			if(i==4||i==9||i==14||i==19||i==24||i==29||i==34||i==39||i==44||i==49) {System.out.println();
+			}
+			
+		}
+		System.out.println();
+		menu();
+	}
+	private void Exit() {
+		System.out.println("Bye dits-dahs..");
+		
+	}
+	
+	public static void main(String[] args) {
+		MORESCODE m=new MORESCODE();
+		m.MORESCODE();
+	}
+
+}
